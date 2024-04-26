@@ -2,8 +2,8 @@ const search = document.getElementById('search');
 const matchList = document.getElementById('match-list');
 
 //search state.json and filtering it 
-const searchStates = async searchText =>{
-    const res = await fetch('states.json');
+const searchStates = async searchText => {
+    const res = await fetch('states.json'); // Corrected address here
     const states = await res.json();
 
     //get matches to current text input
@@ -12,9 +12,9 @@ const searchStates = async searchText =>{
         return state.name.match(regex) || state.abbr.match(regex);
     });
 
-    if(searchText.length === 0) {
+    if (searchText.length === 0) {
         matches = [];
-        matchList.innerHTML ="";
+        matchList.innerHTML = "";
     }
 
     outputHtml(matches);
@@ -22,16 +22,16 @@ const searchStates = async searchText =>{
 
 //show results in HTML
 const outputHtml = matches => {
-    if(matches.length > 0){
+    if (matches.length > 0) {
         const html = matches.map(match => `
           <div class="card card-body mb-1"> 
             <h4>${match.name} (${match.abbr}) <span class="text-primary">${match.capital}</span></h4>
             <small>Lat: ${match.lat} / long: ${match.long}</small>
           </div>
         `)
-        .join('');
+            .join('');
 
-        matchList.innerHTML =  html;
+        matchList.innerHTML = html;
     }
 }
 
